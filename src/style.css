@@ -22,3 +22,11 @@
     display: grid;
     border: 1px solid black;
 }
+
+.swal-overlay {
+    background-color: rgba(111, 175, 9, 0.568);
+}
+
+.swal-modal {
+    border: 5px solid red;
+}

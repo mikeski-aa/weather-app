@@ -78,6 +78,9 @@ function newDomSkeleton(){
 }
 
 function appendDomElements(weather){
+  if (weather === undefined) {
+    console.log('Error location not found');
+  } else {
   doDomStuff().appendDom('locationName', weather.location.name);
   doDomStuff().appendDom('locRegion', weather.location.region);
   doDomStuff().appendDom('locLat', weather.location.lat);
@@ -90,7 +93,7 @@ function appendDomElements(weather){
   doDomStuff().appendDom('currFeels', weather.current.feelslike_c);
   doDomStuff().appendDom('currWind', weather.current.wind_kph);
   doDomStuff().appendDom('currGust', weather.current.gust_kph);
-
+  }
 
 }
 
