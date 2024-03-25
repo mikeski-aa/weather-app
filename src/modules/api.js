@@ -10,7 +10,7 @@ async function checkFetchWorks(input) {
   }
   try {
     const response = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=&q=${input}`,
+      `https://api.weatherapi.com/v1/current.json?key=2f6644036a934b4582e205036242303&q=${input}`,
       { mode: "cors" }
     );
     if (!response.ok) {

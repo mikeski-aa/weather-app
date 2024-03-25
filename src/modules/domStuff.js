@@ -1,8 +1,8 @@
 // import search icon from image folder
 import searchImg from "../img/searchIcon.svg";
-
-// assign search icon source
 const searchIcon = searchImg;
+// assign search icon source
+
 
 // element manipulation
 const doDomStuff = () => {
@@ -13,7 +13,6 @@ const doDomStuff = () => {
   const container = document.querySelector(".containerDiv");
   const locationDetails = document.querySelector(".locationDetails");
   const currentDetails = document.querySelector(".currentDetails");
-  // const locationName = document.querySelector('.locationName')
 
   // creates a new div in the main container
   const newDivInMain = (divName) => {
@@ -47,6 +46,7 @@ const doDomStuff = () => {
   // appends search icon to the search text, creating pseudo button
   // needs to be styled appropriately at later stage
   const appendImage = () => {
+
     searchImg.src = searchIcon;
   };
 
