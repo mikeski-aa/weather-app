@@ -1,11 +1,15 @@
 import "./style.css";
-import {getWeatherData} from "./api.js";
-
+import {getWeatherData} from "./modules/api.js";
+import {doDomStuff, newDomSkeleton } from "./modules/domStuff.js";
 
 
 const startTm = Date.now();
 
+newDomSkeleton();
+doDomStuff().appendImage();
+
 getWeatherData(startTm, 'Berlin');
-console.log(`I've assigned X to the new weather data which I fetched, the value is: ${x}`);
+
+
 
 

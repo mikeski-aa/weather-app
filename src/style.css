@@ -1,0 +1,24 @@
+.mainContent { 
+    width: 98vw;
+    height: 50vh;
+    border: 1px solid black;
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+    margin-right: 2fr;
+}
+
+.containerDiv {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 1px solid black;
+}
+
+.locationDetails, .currentDetails {
+    display: grid;
+    border: 1px solid black;
+}
+
+.locationDetails>div, .currentDetails>div {
+    display: grid;
+    border: 1px solid black;
+}
