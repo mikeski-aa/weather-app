@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather app</title>
-<script defer src="bundle.js"></script></head>
-<body>
+  <script defer src="bundle.js"></script></head>
+  <body>
     <header>
-        <input type="text" id="searchBox">
-        <span class="searchButton">Search</span>
+      <form novalidate>
+        <input type="text" />
+        <button class="searchButton">
+          <img id="searchIcon" /><span id="searchText">Search</span>
+        </button>
+      </form>
     </header>
 
-    <div class="mainContent">
-
-    </div>
-</body>
+    <div class="mainContent"></div>
+  </body>
 </html>
