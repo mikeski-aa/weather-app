@@ -1,23 +1,45 @@
 body {
     /* background-image:url(img/clearnightsky.jpg); */
     background-image: url(img/cleardaysky.jpg);
+    display:flex;
+    flex-direction: column;
     opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    gap: 1rem;
+}
+
+body.day{
+    background-image: url(img/cleardaysky.jpg);
+    color:black;
+}
+
+body.night{
+    background-image:url(img/clearnightsky.jpg);
+    color: white;
 }
 .mainItems{
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
 }
 .mainContent { 
-    width: 650px;
-    height: 50vh;
+    visibility: hidden;
+    width: fit-content;
+    height: 0;
     border: 1px solid black;
+    border-radius: 25px;
     display: grid;
     grid-template-rows: 1fr 9fr;
     margin-right: 2fr;
+    background-color: rgba(245, 245, 220, 0.267);
     
 }
 .pageTitle{
-    writing-mode: vertical-lr;
-    text-orientation: upright;
+    /* writing-mode: vertical-lr;
+    text-orientation: upright; */
+    text-align: center;
     font-size: 2rem;
     padding: 0px;
     margin: 0px;
@@ -26,6 +48,8 @@ body {
 .sideBar {
     display: flex;
     align-items: center;
+    padding-right: 15px;
+
 }
 
 .expandButton{
@@ -36,21 +60,80 @@ body {
     width: fit-content;
     border-radius: 50%;
     border: 0px solid white;
+    margin-right: 15px;
+    
 }
-.containerDiv {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+
+.expandButton:hover, .expandButton.expanded:hover{
+    cursor: pointer;
+    
+}
+.expandButton.expanded{
+    margin-left: 15px;
+}
+
+.expandButton.hidden{
+    transition: transform 300ms ease-in-out;
+    transform: rotate(-360deg);
+}
+li {
+    width: fit-content;
+    text-wrap: nowrap;
+}
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    visibility: visible;
+    padding: 15px;
+    margin: 0px;
+    width: 0;
+    list-style: none;
+    transform:translateX(-100%) scaleX(0);
+    transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
+    opacity: 0;
+    background-color: rgba(245, 245, 220, 0.267);
+    border-radius: 25px;
     border: 1px solid black;
 }
 
-.locationDetails, .currentDetails {
+.links.expanded {
+    visibility: visible;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+    opacity: 1;
+    width: 100%;
+    transform:translateX(0%) scaleX(1);
+
+}
+
+.expandButton.expanded>img {
+    transition: transform 300ms ease-in-out;
+    transform: rotate(180deg);
+}
+
+.containerDiv {
     display: grid;
-    border: 1px solid black;
+    grid-template-columns: 1fr 1fr;
+    height: fit-content;
+    padding: 5px;
+    gap: 1rem;
+    
+}
+
+.locationDetails {
+    border-right: 2px solid black;
+}
+.locationDetails, .currentDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+   
 }
 
 .locationDetails>div, .currentDetails>div {
     display: grid;
-    border: 1px solid black;
+   
 }
 
 .swal-overlay {
@@ -60,3 +143,117 @@ body {
 .swal-modal {
     border: 5px solid red;
 }
+
+#linkOne, #linkTwo, #linkThree, #linkFour {
+    background-color: rgba(245, 245, 220, 0.267);
+    padding: 5px;
+    border-radius: 12px;
+}
+
+#linkOne:hover, #linkTwo:hover, #linkThree:hover, #linkFour:hover  {
+    background-color: rgba(240, 238, 238, 0.89);
+    cursor: pointer;
+    transition: transform 150ms ease-in-out;
+    transform: scale(120%);
+}
+
+header {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    display:flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+label {
+    display: flex;
+}
+
+.searchButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-left: 0;
+    border: 0;
+    border-radius: 0% 12px 12px 0%;
+    height: 35px;
+}
+
+.searchButton:hover{
+    cursor: pointer;
+    outline: 2px solid black;
+}
+
+#searchText {
+    font-size: 0.6rem;
+    font-weight: bold;
+}
+
+input {
+    border-right: 0;
+    border-radius: 12px 0% 0% 12px;
+    width: 40vw;
+    border: 0;
+    height: 35px;
+    padding: 0;
+}
+
+input:hover, input:hover + .searchButton{
+    outline: 2px solid black;
+}
+
+input.errorActive {
+    outline: 2px solid red;
+}
+
+.errorInput.Active{
+    
+    width: 40vw;
+    text-align: center;
+    background-color: pink;
+    border: 2px solid red;
+    color: red;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+div>p{
+    text-align: center;
+    margin:0;
+    max-height: 35px;
+}
+
+[class*='Temp']{
+    font-weight: bolder;
+}
+
+.currTempVal, .currTempScales {
+    font-weight: normal;
+}
+.locationName{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+[class$="Cont"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+[class$="Img"] {
+    margin-left: 5px;
+    font-size: 2rem;
+    width: 24px;
+    height: 24px;
+}
+
+
