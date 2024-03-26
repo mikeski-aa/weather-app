@@ -10,6 +10,7 @@ const checkFormValidation = () => {
   const submitBtn = document.querySelector(".searchButton");
   const re = new RegExp("^[a-zA-Z ]+$");
 
+
   input.addEventListener("input", (e) => {
     console.log(input.value.length);
 
@@ -17,14 +18,14 @@ const checkFormValidation = () => {
       input.className = "errorActive";
       errorInput.className = "errorInput Active";
       errorInput.textContent = "Search field cannot be empty!";
-   
+
     } else if (!input.value.match(re)) {
       console.log("INVALID INPUT");
       input.className = "errorActive";
       errorInput.className = "errorInput Active";
       errorInput.textContent =
         "You must enter a City name, the name cannot include numbers or any special characters!";
-  
+
     } else {
       input.className = "";
       errorInput.className = "errorInput";

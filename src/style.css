@@ -1,12 +1,42 @@
+body {
+    /* background-image:url(img/clearnightsky.jpg); */
+    background-image: url(img/cleardaysky.jpg);
+    opacity: 1;
+}
+.mainItems{
+    display: flex;
+}
 .mainContent { 
-    width: 98vw;
+    width: 650px;
     height: 50vh;
     border: 1px solid black;
     display: grid;
     grid-template-rows: 1fr 9fr;
     margin-right: 2fr;
+    
+}
+.pageTitle{
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-size: 2rem;
+    padding: 0px;
+    margin: 0px;
 }
 
+.sideBar {
+    display: flex;
+    align-items: center;
+}
+
+.expandButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:36px;
+    width: fit-content;
+    border-radius: 50%;
+    border: 0px solid white;
+}
 .containerDiv {
     display: grid;
     grid-template-columns: 1fr 2fr;

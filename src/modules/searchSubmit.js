@@ -8,7 +8,7 @@ function submitSearch() {
 
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
+    
     if (errorMessage.className.match("Active") == null) {
       const startTm = Date.now();
       getWeatherData(startTm, input.value);
