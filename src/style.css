@@ -1,3 +1,7 @@
+* {
+    padding: 0;
+    margin: 0;
+}
 body {
     /* background-image:url(img/clearnightsky.jpg); */
     background-image: url(img/cleardaysky.jpg);
@@ -17,6 +21,7 @@ body.day{
 body.night{
     background-image:url(img/clearnightsky.jpg);
     color: white;
+    border-color: white;
 }
 .mainItems{
     display: flex;
@@ -24,19 +29,32 @@ body.night{
     align-items: center;
     gap: 5rem;
 }
-.mainContent { 
-    visibility: hidden;
-    width: fit-content;
-    height: 0;
-    border: 1px solid black;
+.mainContent {
+    transform: scaleY(0);
+    width:65vw;
+    border: 1px solid inherit;
     border-radius: 25px;
     display: grid;
-    grid-template-rows: 1fr 9fr;
+    grid-template-rows: 0.5fr 3fr;
     margin-right: 2fr;
     background-color: rgba(245, 245, 220, 0.267);
     
 }
+
+.mainContent.visible { 
+  height:178px;
+  transform: scaleY(1);
+  transition: transform 300ms ease-in-out;
+    
+}
+.mainContent.big {
+    height: 39rem;
+}
+
+
 .pageTitle{
+    display:flex;
+    align-items: center;
     /* writing-mode: vertical-lr;
     text-orientation: upright; */
     text-align: center;
@@ -49,14 +67,18 @@ body.night{
     display: flex;
     align-items: center;
     padding-right: 15px;
+    margin-left: 5px;
+
 
 }
 
 .expandButton{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+
     height:36px;
+    width:36px;
     width: fit-content;
     border-radius: 50%;
     border: 0px solid white;
@@ -66,19 +88,27 @@ body.night{
 
 .expandButton:hover, .expandButton.expanded:hover{
     cursor: pointer;
-    
+    height:36px;
+    width:36px;
 }
 .expandButton.expanded{
+    width:fit-content;
     margin-left: 15px;
+    height:36px;
+    width:36px;
+    
 }
 
 .expandButton.hidden{
     transition: transform 300ms ease-in-out;
     transform: rotate(-360deg);
+    height:36px;
+    width:36px;
 }
 li {
     width: fit-content;
     text-wrap: nowrap;
+ 
 }
 .links {
     display: flex;
@@ -118,7 +148,12 @@ li {
     height: fit-content;
     padding: 5px;
     gap: 1rem;
-    
+    transform: scaleY(0);
+}
+
+.containerDiv.visible {
+    transform: scaleY(1);
+    transition: transform 300ms ease-in-out;
 }
 
 .locationDetails {
@@ -137,11 +172,11 @@ li {
 }
 
 .swal-overlay {
-    background-color: rgba(111, 175, 9, 0.568);
+    background-color: rgba(67, 124, 245, 0.568);
 }
 
 .swal-modal {
-    border: 5px solid red;
+    border: 5px solid rgb(255, 174, 0);
 }
 
 #linkOne, #linkTwo, #linkThree, #linkFour {
@@ -158,6 +193,7 @@ li {
 }
 
 header {
+    padding-top: 25px;
     display: flex;
     justify-content: center;
 }
@@ -175,6 +211,7 @@ label {
 
 .searchButton{
     display: flex;
+    width: 3rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -195,6 +232,7 @@ label {
 }
 
 input {
+    text-indent: 15px;
     border-right: 0;
     border-radius: 12px 0% 0% 12px;
     width: 40vw;
@@ -235,13 +273,13 @@ div>p{
 .currTempVal, .currTempScales {
     font-weight: normal;
 }
-.locationName{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
 
+
+.locationNameBig {
+   
+    display:flex;
+    justify-content: center;
+}
 [class$="Cont"] {
     display: flex;
     justify-content: center;
@@ -256,4 +294,27 @@ div>p{
     height: 24px;
 }
 
+.locationName{
+    font-size: 2rem;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    gap: 1rem;
+    height:fit-content;
+    display:grid;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
 
+.locationNameTempCont>img, .LocationNameCondCont>img{
+    margin-left: 5px;
+    width: 35px;
+    height: 35px;
+}
+
+.locationNameCont{
+    gap: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

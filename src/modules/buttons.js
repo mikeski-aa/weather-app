@@ -1,5 +1,6 @@
+import swal from "sweetalert";
 import { getWeatherData } from "./api.js";
-import { formVisibility, toggleTempScales, toggleSpeedScales } from "./domStuff.js";
+import { toggleTempScales, toggleSpeedScales } from "./domStuff.js";
 // this module takes care of search submission
 // the form will become visible and at maximum content height when a successful
 // search request is processed
@@ -11,14 +12,10 @@ function submitSearch() {
 
   submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
-    if (errorMessage.className.match("Active") == null) {
-      formVisibility();
-      const startTm = Date.now();
-      getWeatherData(startTm, input.value);
+    console.log(input.value);
+    if (errorMessage.className.match("Active") == null && input.value !== "") {
+      getWeatherData(input.value);
       input.value = "";
-    } else {
-      console.log("cant submit this wrong shit");
     }
   });
 }
@@ -37,4 +34,28 @@ function speedConvert() {
   });
 }
 
-export { submitSearch, tempConvert, speedConvert };
+function aboutInfo() {
+  const aboutBtn = document.querySelector("#linkTwo");
+  aboutBtn.addEventListener("click", (e) => {
+    alert();
+  });
+}
+
+function details() {
+  const detailsBtn = document.querySelector(".expandDetails");
+  const containerDiv = document.querySelector(".containerDiv");
+  const mainCont = document.querySelector(".mainContent");
+  detailsBtn.addEventListener("click", (e) => {
+    containerDiv.classList.toggle("visible");
+    mainCont.classList.toggle("big");
+  });
+}
+
+function alert() {
+  swal({
+    title: "About",
+    text: "Icons: https://fonts.google.com/icons /// Background images: https://pixabay.com/ /// WeatherAPI: https://www.weatherapi.com/",
+    button: "K thnx bai"
+  });
+}
+export { submitSearch, tempConvert, speedConvert, details, aboutInfo };

@@ -9,7 +9,6 @@ import feelsLike from "../img/icons/feelsLike.svg";
 import humidity from "../img/icons/humidity.svg";
 import night from "../img/icons/night.svg";
 import rain from "../img/icons/rain.svg";
-import snowflake from "../img/icons/snowflake.svg";
 import snowing from "../img/icons/snowing.svg";
 import sunny from "../img/icons/sunny.svg";
 import time from "../img/icons/time.svg";
@@ -26,6 +25,15 @@ const doDomStuff = () => {
   const locationDetails = document.querySelector(".locationDetails");
   const currentDetails = document.querySelector(".currentDetails");
   const newImg = document.createElement("img");
+
+  // create expand button
+  const newExpandButton = () => {
+    const parent = document.querySelector(".locationNameCont");
+    const newBtn = document.createElement("button");
+    newBtn.textContent = "See details";
+    newBtn.classList.add("expandDetails");
+    parent.appendChild(newBtn);
+  };
 
   // creates a new div in the main container
   const newDivInMain = (divName) => {
@@ -99,6 +107,7 @@ const doDomStuff = () => {
   };
 
   return {
+    newExpandButton,
     appendResultIcons,
     newImgAdd,
     newContainerInTarget,
@@ -116,6 +125,17 @@ const doDomStuff = () => {
 // function neatly creates dom skeleton where values obtained from API can be stored
 function newDomSkeleton() {
   doDomStuff().newDivInMain("locationName");
+  doDomStuff().newParAdd("locationName", "locationNameBig");
+  doDomStuff().newContainerInTarget("locationName", "locationNameCont");
+  doDomStuff().newContainerInTarget("locationNameCont", "locationNameTempCont");
+  doDomStuff().newParAdd("locationNameTempCont", "locationNameTempVal");
+  doDomStuff().newParAdd("locationNameTempCont", "locationNameTempScales");
+  doDomStuff().newImgAdd("locationNameTempCont", "locationNameTempImg");
+  doDomStuff().newContainerInTarget("locationNameCont", "LocationNameCondCont");
+  doDomStuff().newParAdd("LocationNameCondCont", "locationNameCondVal");
+  doDomStuff().newImgAdd("LocationNameCondCont", "locationNameCondImg");
+  doDomStuff().newExpandButton();
+
   doDomStuff().newDivInMain("containerDiv");
   doDomStuff().newDivInCtnr("locationDetails");
   doDomStuff().newDivInCtnr("currentDetails");
@@ -203,11 +223,22 @@ function appendDomElements(weather) {
   if (weather === undefined) {
     console.log("Error location not found");
   } else {
-    doDomStuff().appendDom("locationName", weather.location.name);
+    doDomStuff().appendDom("locationNameBig", weather.location.name);
+    doDomStuff().appendDom("locationNameTempVal", weather.current.temp_c);
+    doDomStuff().appendDom("locationNameTempScales", " °C ");
+    doDomStuff().appendDom(
+      "locationNameCondVal",
+      weather.current.condition.text
+    );
+
+    console.log(weather.current.condition.text);
     doDomStuff().appendDom("locRegionVal", weather.location.region);
     doDomStuff().appendDom("locLatVal", weather.location.lat);
     doDomStuff().appendDom("locLonVal", weather.location.lon);
-    doDomStuff().appendDom("locTimeVal", dateToTime(weather.location.localtime));
+    doDomStuff().appendDom(
+      "locTimeVal",
+      dateToTime(weather.location.localtime)
+    );
     domBodyTagToggle(checkTimeOfDay(dateToTime(weather.location.localtime)));
 
     doDomStuff().appendDom("currConditionVal", weather.current.condition.text);
@@ -222,11 +253,19 @@ function appendDomElements(weather) {
     doDomStuff().appendDom("currGustScales", "KpH");
 
     // append icons appendResultIcons = (targetIcon, iconImportName, iconName)
+    doDomStuff().appendResultIcons("locationNameTempImg", tempImg);
+    doDomStuff().appendResultIcons(
+      "locationNameCondImg",
+      weatherCondCheck(weather.current.condition.text)
+    );
     doDomStuff().appendResultIcons("regionImg", earth);
     doDomStuff().appendResultIcons("latImg", compass);
     doDomStuff().appendResultIcons("lonImg", compass);
     doDomStuff().appendResultIcons("timeImg", time);
-    doDomStuff().appendResultIcons("condImg", cloud);
+    doDomStuff().appendResultIcons(
+      "condImg",
+      weatherCondCheck(weather.current.condition.text)
+    );
     doDomStuff().appendResultIcons("temperatureImg", tempImg);
     doDomStuff().appendResultIcons("humImg", humidity);
     doDomStuff().appendResultIcons("temperatureFeelsImg", feelsLike);
@@ -252,8 +291,7 @@ function expandButtonListen() {
 // function to show form visibility and height
 function formVisibility() {
   let mainContent = document.querySelector(".mainContent");
-  mainContent.style.visibility = "visible";
-  mainContent.style.height = "fit-content";
+  mainContent.classList.add("visible");
 }
 
 // function to toggle degrees C and F
@@ -262,17 +300,25 @@ function toggleTempScales() {
   const currFeels = document.querySelector(".currFeelsScales");
   const currTempVal = document.querySelector(".currTempVal");
   const currFeelsVal = document.querySelector(".currFeelsVal");
+  const largeTempVal = document.querySelector(".locationNameTempVal");
+  const largeTempScales = document.querySelector(".locationNameTempScales");
 
   if (currTemp.textContent == "°C") {
     currTemp.textContent = "F";
+    largeTempScales.textContent = "F";
     currFeels.textContent = "F";
+
     currTempVal.textContent = celsiusToF(currTempVal.textContent);
     currFeelsVal.textContent = celsiusToF(currFeelsVal.textContent);
+    largeTempVal.textContent = celsiusToF(largeTempVal.textContent);
   } else {
     currTemp.textContent = "°C";
+    largeTempScales.textContent = "°C";
     currFeels.textContent = "°C";
+
     currTempVal.textContent = farenheitToC(currTempVal.textContent);
     currFeelsVal.textContent = farenheitToC(currFeelsVal.textContent);
+    largeTempVal.textContent = farenheitToC(largeTempVal.textContent);
   }
 }
 
@@ -319,26 +365,47 @@ function mphToKph(inputSpeed) {
 }
 
 // function to convert date to only time
-function dateToTime(input){
+function dateToTime(input) {
   let newTime = input.split(" ")[1];
   return newTime;
 }
 
 // function to check time of location searched
-function checkTimeOfDay(input){
+function checkTimeOfDay(input) {
   let hours = input.split(":")[0];
   return hours;
 }
 
 // function to change body tag depending on time
-function domBodyTagToggle(input){
-  const body = document.querySelector('body');
+function domBodyTagToggle(input) {
+  const body = document.querySelector("body");
   if (input > 18 || input < 6) {
-    body.classList.remove('day')
-    body.classList.add('night')
+    body.classList.remove("day");
+    body.classList.add("night");
   } else {
-    body.classList.remove('night')
-    body.classList.add('day')
+    body.classList.remove("night");
+    body.classList.add("day");
+  }
+}
+
+// function to check conditions and assign relevant icon
+function weatherCondCheck(input) {
+  if (input.includes("Clear")) {
+    return night;
+  } else if (input.includes("Sunny")) {
+    return sunny;
+  } else if (
+    input.includes("Overcast") ||
+    input.includes("cloud") ||
+    input.includes("Cloud") ||
+    input.includes("cloudy") ||
+    input.includes("Cloudy")
+  ) {
+    return cloud;
+  } else if (input.includes("Rain") || input.includes("rain")) {
+    return rain;
+  } else if (input.includes("Snow") || input.includes("snow")) {
+    return snowing;
   }
 }
 
