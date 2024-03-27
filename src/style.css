@@ -318,3 +318,16 @@ div>p{
     flex-direction: column;
     justify-content: center;
 }
+
+.expandDetails {
+    border-radius: 12px;
+    font-size: 1rem;
+    border: 0;
+    padding: 4px;
+}
+
+.expandDetails:hover{
+    cursor: pointer;
+    transform: scale(120%);
+    transition: transform 200ms ease-in-out;
+}
